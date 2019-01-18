@@ -8,9 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -30,30 +29,20 @@ public class MainController {
     private Button deleteButton;
 
     @FXML
-    private TableView<Human> tableHumans;
+    private TreeTableView<Human> tableHumans;
 
     @FXML
-    private TableColumn<Human, Integer> idColumn;
+    private TreeTableColumn<Human, String> nameColumn;
 
     @FXML
-    private TableColumn<Human, String> nameColumn;
+    private TreeTableColumn<Human, Integer> ageColumn;
 
     @FXML
-    private TableColumn<Human, Integer> ageColumn;
-
-    @FXML
-    private TableColumn<Human, Date> birthdayColumn;
+    private TreeTableColumn<Human, Date> birthdayColumn;
 
     @FXML
     private void initialize() {
-        initData();
 
-        idColumn.setCellValueFactory(new PropertyValueFactory<Human, Integer>("id"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<Human, String>("name"));
-        ageColumn.setCellValueFactory(new PropertyValueFactory<Human, Integer>("age"));
-        birthdayColumn.setCellValueFactory(new PropertyValueFactory<Human, Date>("birthday"));
-
-        tableHumans.setItems(humans);
     }
 
     @FXML
@@ -63,20 +52,18 @@ public class MainController {
         Parent root = loader.load(getClass().getResourceAsStream(fxmlFile));
         Stage stage = new Stage();
         stage.setTitle("Add new human");
-        stage.setScene(new Scene(root, 450, 450));
+        stage.setScene(new Scene(root));
         stage.showAndWait();
     }
 
-    public ObservableList<Human> getHumans() {
-        return humans;
-    }
-
-    public void setHumans(ObservableList<Human> humans) {
-        this.humans = humans;
-    }
-
-    private void initData() {
-        humans.add(new Human(1, "Alex", 27, "1991-12-20"));
-        humans.add(new Human(2, "Pavel", 27, "1992-01-01"));
+    @FXML
+    public void editHuman() throws IOException {
+        String fxmlFile = "/fxml/edit.fxml";
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(getClass().getResourceAsStream(fxmlFile));
+        Stage stage = new Stage();
+        stage.setTitle("Edit human");
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
     }
 }
