@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="by.silverscreen.app.controller.AddController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <children>
+        <Label layoutX="24.0" layoutY="10.0" text="Name:" />
+        <Label layoutX="24.0" layoutY="60.0" text="Age:" />
+        <Label layoutX="24.0" layoutY="110.0" text="Birthday:" />
+        <TextField layoutX="24.0" layoutY="30.0" prefWidth="200.0" />
+        <TextField layoutX="24.0" layoutY="80.0" prefWidth="200.0" />
+        <TextField layoutX="24.0" layoutY="130.0" prefWidth="200.0" />
+        <Button layoutX="200.0" layoutY="190.0" mnemonicParsing="false" onAction="#saveNewHuman" text="Save" />
+        <Button layoutX="250.0" layoutY="190.0" mnemonicParsing="false" text="Cancel" />
+    </children>
+
+</AnchorPane>
