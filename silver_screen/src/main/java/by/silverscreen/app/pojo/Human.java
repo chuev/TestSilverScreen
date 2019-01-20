@@ -19,6 +19,12 @@ public class Human {
         this.birthday = getDateFromString(birthday);
     }
 
+    public Human(String name, int age, Date birthday) {
+        this.name = name;
+        this.age = age;
+        this.birthday = birthday;
+    }
+
     public String getName() {
         return name;
     }
@@ -53,6 +59,10 @@ public class Human {
             e.printStackTrace();
         }
         return date;
+    }
+
+    public String getBithString(SimpleDateFormat simpleBithFormat) {
+        return simpleBithFormat.format(birthday);
     }
 }
 
