@@ -1,6 +1,7 @@
 package by.silverscreen.app.controller;
 
 import by.silverscreen.app.pojo.Human;
+import by.silverscreen.app.util.IdController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -124,9 +125,12 @@ public class MainController extends Application {
         stage.setTitle("Edit human");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/edit.fxml"));
         Parent root = loader.load();
+        EditController controller = loader.getController();
+        controller.init(this, selected);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.showAndWait();
+        this.selected = controller.getHuman();
     }
 
     public void deleteHuman() {
@@ -157,7 +161,7 @@ public class MainController extends Application {
     }
 
     private void initData() {
-        humans.add(new Human("Alex", 27, "1991-12-20"));
-        humans.add(new Human("Pavel", 27, new Date()));
+        humans.add(new Human(IdController.getNextId(), "Alex", 27, "1991-12-20"));
+        humans.add(new Human(IdController.getNextId(), "Pavel", 27, new Date()));
     }
 }
