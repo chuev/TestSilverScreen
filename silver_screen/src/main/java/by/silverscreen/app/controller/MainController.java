@@ -122,10 +122,10 @@ public class MainController extends Application {
     public void editHuman() throws IOException {
         Stage stage = new Stage();
         stage.setTitle("Edit human");
-        stage.setScene(new Scene(
-                new FXMLLoader()
-                        .load(getClass().getResourceAsStream("/fxml/edit.fxml")))
-        );
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/edit.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
         stage.showAndWait();
     }
 
