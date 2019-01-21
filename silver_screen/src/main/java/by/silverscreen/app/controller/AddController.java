@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.sql.Date;
 import java.util.regex.Matcher;
@@ -34,6 +35,12 @@ public class AddController {
         this.mainController = mainController;
     }
 
+    @FXML
+    public void cancelAction() {
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.close();
+    }
+
     public void saveNewHuman() {
         if ("".equals(name.getText())) {
             showWarning("Введите имя Human!");
@@ -52,6 +59,7 @@ public class AddController {
                     Date.valueOf(birthday.getValue())
             );
             addToList(human);
+            cancelAction();
         }
     }
 
