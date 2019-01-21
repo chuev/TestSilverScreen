@@ -27,7 +27,6 @@ public class MainController extends Application {
     private ObservableList<Human> humans = FXCollections.observableArrayList();
     private Human selected;
 
-
     @FXML
     private Button buttonAdd;
     @FXML
@@ -50,9 +49,9 @@ public class MainController extends Application {
         buttonEdit.setOnAction(event -> {
             if (selected == null) {
                 Alert warn = new Alert(Alert.AlertType.ERROR);
-                warn.setTitle("Предупреждение");
-                warn.setHeaderText("Header Text");
-                warn.setContentText("Content Text");
+                warn.setTitle("Edit");
+                warn.setHeaderText("Выберите сущность для редактирования!");
+                warn.setContentText("");
                 warn.showAndWait();
             } else {
                 try {
@@ -84,16 +83,15 @@ public class MainController extends Application {
         });
 
         tableHumans.setOnMouseClicked(event -> {
-            if (event.getButton().equals(MouseButton.PRIMARY)) {
-                if (event.getClickCount() == 2) {
-                    if (selected.getBithString(simpleBithFormat).equals(simpleBithFormat.format(today))) {
-                        Alert success = new Alert(Alert.AlertType.ERROR);
-                        success.setTitle("Happy Birthday!!!");
-                        success.setHeaderText("Header Text OK");
-                        success.setContentText("Content Text OK");
-                        success.showAndWait();
-                    }
-                }
+            if (event.getButton().equals(MouseButton.PRIMARY) &&
+                    event.getClickCount() == 2 &&
+                    selected.getBithString(simpleBithFormat).equals(simpleBithFormat.format(today))
+            ) {
+                Alert success = new Alert(Alert.AlertType.ERROR);
+                success.setTitle("Happy Birthday!!!");
+                success.setHeaderText("Сегодня у " + selected.getName() + " день рождения.");
+                success.setContentText("");
+                success.showAndWait();
             }
         });
 
@@ -124,7 +122,6 @@ public class MainController extends Application {
         stage.show();
     }
 
-    @FXML
     public void addNewHuman() throws IOException {
         Stage stage = new Stage();
         stage.setTitle("Add new human");
@@ -137,7 +134,6 @@ public class MainController extends Application {
         stage.showAndWait();
     }
 
-    @FXML
     public void editHuman() throws IOException {
         Stage stage = new Stage();
         stage.setTitle("Edit human");

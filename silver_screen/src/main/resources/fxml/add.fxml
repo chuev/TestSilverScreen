@@ -14,8 +14,8 @@
         <Label layoutX="24.0" layoutY="110.0" text="Birthday:" />
         <TextField fx:id="name" layoutX="24.0" layoutY="30.0" prefWidth="200.0" />
         <TextField fx:id="age" layoutX="24.0" layoutY="80.0" prefWidth="200.0" />
-        <Button layoutX="59.0" layoutY="178.0" mnemonicParsing="false" onAction="#saveNewHuman" text="Save" />
-        <Button layoutX="140.0" layoutY="178.0" mnemonicParsing="false" text="Cancel" />
+        <Button id="saveButton" layoutX="59.0" layoutY="178.0" mnemonicParsing="false" onAction="#saveNewHuman" text="Save" />
+        <Button id="cancelButton" layoutX="140.0" layoutY="178.0" mnemonicParsing="false" text="Cancel" />
       <DatePicker fx:id="birthday" layoutX="24.0" layoutY="136.0" prefHeight="25.0" prefWidth="200.0" />
     </children>
 
