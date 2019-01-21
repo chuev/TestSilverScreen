@@ -5,23 +5,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
+import java.sql.Date;
+
 public class AddController {
 
     private MainController mainController;
 
     @FXML
-    public void saveNewHuman() {
-
-    }
-
-    @FXML
     private TextField name;
-
     @FXML
     private TextField age;
-
     @FXML
-    private DatePicker birthday ;
+    private DatePicker birthday;
 
     public MainController getMainController() {
         return mainController;
@@ -31,7 +26,17 @@ public class AddController {
         this.mainController = mainController;
     }
 
-    private void addToList(Human human){
+    @FXML
+    public void saveNewHuman() {
+        Human human = new Human(
+                name.getText(),
+                Integer.valueOf(age.getText()),
+                Date.valueOf(birthday.getValue())
+        );
+        addToList(human);
+    }
+
+    private void addToList(Human human) {
         this.mainController.getHumans().add(human);
     }
 }

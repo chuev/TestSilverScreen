@@ -26,7 +26,6 @@
                 prefWidth="38.0" text="Add"/>
         <TableView fx:id="tableHumans" layoutY="39.0" prefHeight="363.0" prefWidth="600.0">
             <columns>
-                <TableColumn fx:id="idColumn" prefWidth="40.0" text="№ id"/>
                 <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name"/>
                 <TableColumn fx:id="ageColumn" prefWidth="75.0" text="Age"/>
                 <TableColumn fx:id="birthdayColumn" prefWidth="200.0" text="Birthday"/>

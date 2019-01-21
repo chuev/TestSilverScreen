@@ -4,26 +4,28 @@ import by.silverscreen.app.pojo.Human;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 public class MainController extends Application {
 
     private Date today = new Date();
     private SimpleDateFormat simpleBithFormat = new SimpleDateFormat("MM-dd");
+    private ObservableList<Human> humans = FXCollections.observableArrayList();
+    private Human selected;
 
 
     @FXML
@@ -32,31 +34,21 @@ public class MainController extends Application {
     private Button buttonEdit;
     @FXML
     private Button deleteButton;
-    private ObservableList<Human> humans = FXCollections.observableArrayList();
-
     @FXML
     private TableView<Human> tableHumans;
-
-    @FXML
-    private TableColumn<Human, Integer> idColumn;
-
     @FXML
     private TableColumn<Human, String> nameColumn;
-
     @FXML
     private TableColumn<Human, Integer> ageColumn;
-
     @FXML
     private TableColumn<Human, Date> birthdayColumn;
-
-    Human selected;
 
     @FXML
     private void initialize() {
         initData();
 
         buttonEdit.setOnAction(event -> {
-            if(selected == null){
+            if (selected == null) {
                 Alert warn = new Alert(Alert.AlertType.ERROR);
                 warn.setTitle("Предупреждение");
                 warn.setHeaderText("Header Text");
@@ -80,12 +72,9 @@ public class MainController extends Application {
         });
 
         tableHumans.setOnMouseClicked(event -> {
-
-            System.out.println(event);
-
-            if(event.getButton().equals(MouseButton.PRIMARY)){
-                if(event.getClickCount() == 2){
-                    if(selected.getBithString(simpleBithFormat).equals(simpleBithFormat.format(today))){
+            if (event.getButton().equals(MouseButton.PRIMARY)) {
+                if (event.getClickCount() == 2) {
+                    if (selected.getBithString(simpleBithFormat).equals(simpleBithFormat.format(today))) {
                         Alert success = new Alert(Alert.AlertType.ERROR);
                         success.setTitle("Happy Birthday!!!");
                         success.setHeaderText("Header Text OK");
@@ -127,15 +116,11 @@ public class MainController extends Application {
     public void addNewHuman() throws IOException {
         Stage stage = new Stage();
         stage.setTitle("Add new human");
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/add.fxml"));
         Parent root = loader.load();
         AddController controller = loader.getController();
         controller.setMainController(this);
-
         Scene scene = new Scene(root);
-
-
         stage.setScene(scene);
         stage.showAndWait();
     }
