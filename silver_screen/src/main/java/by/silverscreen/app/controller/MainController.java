@@ -42,9 +42,27 @@ public class MainController extends Application {
     @FXML
     private TableColumn<Human, Date> birthdayColumn;
 
+    public ObservableList<Human> getHumans() {
+        return humans;
+    }
+
     @FXML
     private void initialize() {
         initData();
+
+        tableHumans.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                selected = (Human) newValue;
+            }
+        });
+
+        buttonAdd.setOnAction(event -> {
+            try {
+                addNewHuman();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         buttonEdit.setOnAction(event -> {
             if (selected == null) {
@@ -62,54 +80,17 @@ public class MainController extends Application {
             }
         });
 
-        buttonAdd.setOnAction(event -> {
-            try {
-                addNewHuman();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
         buttonDelete.setOnAction(event -> {
-            if (selected == null) {
-                Alert warn = new Alert(Alert.AlertType.ERROR);
-                warn.setTitle("Delete");
-                warn.setHeaderText("Выберите строку для удаления!");
-                warn.setContentText("");
-                warn.showAndWait();
-            } else {
-                deleteHuman();
-            }
+            deleteHuman();
         });
 
-        tableHumans.setOnMouseClicked(event -> {
-            if (event.getButton().equals(MouseButton.PRIMARY) &&
-                    event.getClickCount() == 2 &&
-                    selected.getBithString(simpleBithFormat).equals(simpleBithFormat.format(today))
-            ) {
-                Alert success = new Alert(Alert.AlertType.ERROR);
-                success.setTitle("Happy Birthday!!!");
-                success.setHeaderText("Сегодня у " + selected.getName() + " день рождения.");
-                success.setContentText("");
-                success.showAndWait();
-            }
-        });
+        birthdayVerification();
 
-        tableHumans.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                selected = (Human) newValue;
-            }
-        });
         nameColumn.setCellValueFactory(new PropertyValueFactory<Human, String>("name"));
         ageColumn.setCellValueFactory(new PropertyValueFactory<Human, Integer>("age"));
         birthdayColumn.setCellValueFactory(new PropertyValueFactory<Human, Date>("birthday"));
 
         tableHumans.setItems(humans);
-    }
-
-    private void initData() {
-        humans.add(new Human("Alex", 27, "1991-12-20"));
-        humans.add(new Human("Pavel", 27, new Date()));
     }
 
     @Override
@@ -120,6 +101,10 @@ public class MainController extends Application {
         stage.setTitle("JavaFX and Maven");
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    public static void main(String[] args) throws Exception {
+        launch(args);
     }
 
     public void addNewHuman() throws IOException {
@@ -145,14 +130,34 @@ public class MainController extends Application {
     }
 
     public void deleteHuman() {
-        humans.remove(selected);
+        if (selected == null) {
+            Alert warn = new Alert(Alert.AlertType.ERROR);
+            warn.setTitle("Delete");
+            warn.setHeaderText("Выберите строку для удаления!");
+            warn.setContentText("");
+            warn.showAndWait();
+        } else {
+            humans.remove(selected);
+        }
     }
 
-    public static void main(String[] args) throws Exception {
-        launch(args);
+    public void birthdayVerification() {
+        tableHumans.setOnMouseClicked(event -> {
+            if (event.getButton().equals(MouseButton.PRIMARY) &&
+                    event.getClickCount() == 2 &&
+                    selected.getBithString(simpleBithFormat).equals(simpleBithFormat.format(today))
+            ) {
+                Alert success = new Alert(Alert.AlertType.ERROR);
+                success.setTitle("Happy Birthday!!!");
+                success.setHeaderText("Сегодня у " + selected.getName() + " день рождения.");
+                success.setContentText("");
+                success.showAndWait();
+            }
+        });
     }
 
-    public ObservableList<Human> getHumans() {
-        return humans;
+    private void initData() {
+        humans.add(new Human("Alex", 27, "1991-12-20"));
+        humans.add(new Human("Pavel", 27, new Date()));
     }
 }

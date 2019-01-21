@@ -2,20 +2,20 @@ package by.silverscreen.app.controller;
 
 import by.silverscreen.app.pojo.Human;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.Date;
 
 public class AddController {
 
     private MainController mainController;
 
+    @FXML
+    private Button saveButton;
+    @FXML
+    private Button cancelButton;
     @FXML
     private TextField name;
     @FXML
@@ -29,16 +29,6 @@ public class AddController {
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
-    }
-
-    public void addNewHuman() throws IOException {
-        Stage stage = new Stage();
-        stage.setTitle("Add new human");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/add.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.showAndWait();
     }
 
     public void saveNewHuman() {
