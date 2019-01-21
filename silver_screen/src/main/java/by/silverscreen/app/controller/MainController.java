@@ -33,7 +33,7 @@ public class MainController extends Application {
     @FXML
     private Button buttonEdit;
     @FXML
-    private Button deleteButton;
+    private Button buttonDelete;
     @FXML
     private TableView<Human> tableHumans;
     @FXML
@@ -68,6 +68,18 @@ public class MainController extends Application {
                 addNewHuman();
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        });
+
+        buttonDelete.setOnAction(event -> {
+            if (selected == null) {
+                Alert warn = new Alert(Alert.AlertType.ERROR);
+                warn.setTitle("Delete");
+                warn.setHeaderText("Выберите строку для удаления!");
+                warn.setContentText("");
+                warn.showAndWait();
+            } else {
+                deleteHuman();
             }
         });
 
@@ -134,6 +146,10 @@ public class MainController extends Application {
                         .load(getClass().getResourceAsStream("/fxml/edit.fxml")))
         );
         stage.showAndWait();
+    }
+
+    public void deleteHuman() {
+        humans.remove(selected);
     }
 
     public static void main(String[] args) throws Exception {
